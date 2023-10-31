@@ -9,6 +9,7 @@ import Col from 'react-bootstrap/Col';
 import TasksList from './components/TasksList';
 import UpdateTask from './components/UpdateTask';
 
+
 function App() {
   return (
     <div className="App">
@@ -26,8 +27,6 @@ function App() {
         </Row>
         <UpdateTask />
       </Container>
-
-
     </div>
   );
 }
