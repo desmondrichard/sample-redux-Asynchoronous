@@ -4,28 +4,30 @@ import Button from 'react-bootstrap/Button';
 import MyVerticallyCenteredModal from './UpdateTask';
 import { getTasksFromServer } from './slices/tasksSlice';
 import { useDispatch, useSelector } from 'react-redux';
-///
-import { setSelectedTask} from "./slices/tasksSlice";
+import { setSelectedTask,removeTaskFromList,deleteTaskFromServer} from "./slices/tasksSlice";
+
+
 function TasksList() {
-  ///
   const dispatch = useDispatch();
-  ///
   const { tasksList } = useSelector((state) => state.tasks)
 
   function UpdateTask(task) {
     console.log("update");
     setModalShow(true);
-    ////
     dispatch(setSelectedTask(task))
   }
 
-  ///
   useEffect(() => {
     dispatch(getTasksFromServer())
   }, [dispatch])
 
-  function DeleteTask() {
+  function DeleteTask(task) {
     console.log("delete");
+    dispatch(deleteTaskFromServer(task))
+    .unwrap()
+    .then(()=>{
+      dispatch(removeTaskFromList(task))
+    })
   }
 
   const [modalShow, setModalShow] = useState(false);
@@ -44,7 +46,7 @@ function TasksList() {
         <tbody>
           {/*  */}
           {
-            tasksList && tasksList.map((task, index) => {
+            tasksList && tasksList.map((task) => {
               return (
                 <tr key={task.id}>
                   <td>{task.id}</td>
@@ -52,7 +54,7 @@ function TasksList() {
                   <td>{task.desc}</td>
                   <td>
                     <Button variant="primary" className='mx-3' onClick={() => UpdateTask(task)}><i className="bi bi-pencil-square"></i></Button>
-                    <Button variant="primary" onClick={() => DeleteTask()}><i className="bi bi-trash3-fill"></i></Button>
+                    <Button variant="primary" onClick={() => DeleteTask(task)}><i className="bi bi-trash3-fill"></i></Button>
                   </td>
                 </tr>
               )

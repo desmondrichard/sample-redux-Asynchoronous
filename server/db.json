@@ -1,13 +1,6 @@
 {
   "tasks": [
     {
-      "id": 1,
-      "title": "task1",
-      "desc": "this is task one",
-      "username": "doss",
-      "password": "doss"
-    },
-    {
       "id": 2,
       "title": "task2",
       "desc": "this is task two"
